@@ -1,0 +1,5 @@
+for x = 0.0 until 3.0 do
+	if 2.0 then
+		x = 5.0
+	fi
+od

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lang.ParseTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2017-09-06T09:25:03" hostname="hacke-2" time="0.022">
+  <properties/>
+  <testcase name="identifier" classname="lang.ParseTests" time="0.014"/>
+  <testcase name="error2" classname="lang.ParseTests" time="0.001"/>
+  <testcase name="error3" classname="lang.ParseTests" time="0.001"/>
+  <testcase name="myFile" classname="lang.ParseTests" time="0.001"/>
+  <testcase name="product" classname="lang.ParseTests" time="0.001"/>
+  <testcase name="let" classname="lang.ParseTests" time="0.001"/>
+  <testcase name="error" classname="lang.ParseTests" time="0.001"/>
+  <testcase name="numerical" classname="lang.ParseTests" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

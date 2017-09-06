@@ -1,0 +1,1 @@
+let HUS = 123.0 in 3.0 * HUS end
