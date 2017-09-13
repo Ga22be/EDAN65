@@ -1,0 +1,6 @@
+let
+    radius = ask user
+    piTwo = 2.0 * 3.14
+in
+    piTwo * radius
+end

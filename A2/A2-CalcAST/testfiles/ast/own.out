@@ -1,0 +1,15 @@
+Program
+  Let
+    List
+      Binding
+        IdDecl ID="radius"
+        Ask
+          Opt
+      Binding
+        IdDecl ID="piTwo"
+        Mul
+          Numeral NUMERAL="2.0"
+          Numeral NUMERAL="3.14"
+    Mul
+      IdUse ID="piTwo"
+      IdUse ID="radius"

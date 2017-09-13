@@ -3,3 +3,7 @@
 *.iws
 *.gradle/
 *.idea/
+*.jar
+
+*build/
+*gen/
