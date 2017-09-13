@@ -24,12 +24,11 @@ import lang.ast.LangParser.SyntaxError;
   private beaver.Symbol sym(short id) {
     return new beaver.Symbol(id, yyline + 1, yycolumn + 1, yylength(), yytext());
   }
-%}s
+%}
 
 // macros
 WhiteSpace = [ ] | \t | \f | \n | \r
 ID = [a-zA-Z]+
-Numeral = [0-9]+ "." [0-9]+
 
 %%
 
@@ -37,19 +36,7 @@ Numeral = [0-9]+ "." [0-9]+
 {WhiteSpace}  { }
 
 // token definitions
-"let"         { return sym(Terminals.LET); }
-"in"          { return sym(Terminals.IN); }
-"end"         { return sym(Terminals.END); }
-"ask"         { return sym(Terminals.ASK); }
-"user"        { return sym(Terminals.USER); }
-"="           { return sym(Terminals.ASSIGN); }
-"*"           { return sym(Terminals.MUL); }
-"["           { return sym(Terminals.LBRACKET); }
-"]"           { return sym(Terminals.RBRACKET); }
-"IF"          { return sym(Terminals.IF); }
-"THEN"        { return sym(Terminals.THEN); }
 {ID}          { return sym(Terminals.ID); }
-{Numeral}     { return sym(Terminals.NUMERAL); }
 <<EOF>>       { return sym(Terminals.EOF); }
 
 /* error fallback */

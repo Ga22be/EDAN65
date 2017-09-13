@@ -14,6 +14,9 @@
 // new terminals for Calc 2.0
 %terminals ASK, USER, LBRACKET, RBRACKET;
 
+// test terminal from lab instruction
+%terminals IF, THEN; // DECLARATION OF NEW TERMINALS
+
 %typeof program = "Program";
 %typeof exp = "Expr";
 %typeof factor = "Expr";
@@ -27,7 +30,9 @@
 
 %goal program;
 
-program = exp.a {: return new Program(a); :} ;
+program = exp.a {: return new Program(a); :}
+    | IF THEN // DUMMY PRODUCTION FOR UNUSED TERMINALS
+    ;
 
 exp =
 	factor
@@ -41,7 +46,8 @@ factor =
 	| id_use
 	;
 
-let = LET binding_list.a IN exp.b END {: return new Let(a, b); :} ;
+let = LET binding_list.a IN exp.b END {: System.out.println("Hello!"); return new Let(a, b); :} ;
+// let = LET binding_list IN exp END;
 
 ask =
 	ASK USER {: return new Ask(new Opt()); :}
