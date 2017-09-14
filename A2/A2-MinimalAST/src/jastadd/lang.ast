@@ -4,5 +4,10 @@ Function ::= IdDecl Statement*;
 
 abstract Statement;
 Declaration : Statement ::= IdDecl;
+Assignment : Statement ::= IdDecl Expression;
+
+abstract Expression;
+IdUse : Expression ::= <ID>;
+Numeral : Expression ::= <NUMERAL>;
 
 IdDecl ::= <ID> ;

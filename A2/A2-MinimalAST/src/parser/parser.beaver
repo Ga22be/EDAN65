@@ -12,14 +12,19 @@
 %terminals ID;
 
 // Self added terminals
-%terminals INT, LPAR, RPAR, LBRACE, RBRACE, SEMI;
+%terminals NUMERAL, INT, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN;
 
 %typeof program = "Program";
 %typeof function = "Function";
 %typeof functionList = "List";
-%typeof id = "IdDecl";
+%typeof idDecl = "IdDecl";
 %typeof stmtList = "List";
+%typeof stmt = "Statement";
+%typeof expr = "Expression";
 %typeof decl = "Declaration";
+%typeof assign = "Assignment";
+%typeof numeral = "Numeral";
+%typeof idUse = "IdUse";
 
 %goal program;
 
@@ -30,16 +35,26 @@ functionList =
     | functionList.funcList function.func {: return funcList.add(func); :} ;
 
 function =
-    INT id.funcID LPAR RPAR LBRACE stmtList.listOfStmt RBRACE {: return new Function(funcID, listOfStmt); :}
-    | INT id.funcID LPAR RPAR LBRACE RBRACE {: return new Function(funcID, new List()); :}
+    INT idDecl.funcID LPAR RPAR LBRACE stmtList.listOfStmt RBRACE {: return new Function(funcID, listOfStmt); :}
+    | INT idDecl.funcID LPAR RPAR LBRACE RBRACE {: return new Function(funcID, new List()); :}
     ;
 
 stmtList =
     stmt.stmt {: return new List().add(stmt); :}
     | stmtList.stmtList stmt.stmt {: return stmtList.add(stmt); :} ;
 
-stmt = decl;
+// Statements
+stmt = decl | assign ;
 
-decl = INT id.id SEMI {: return new Declaration(id); :};
+decl = INT idDecl.id SEMI {: return new Declaration(id); :} ;
 
-id = ID.id {: return new IdDecl(id); :} ;
+assign = idDecl.id ASSIGN expr.expr SEMI {: return new Assignment(id, expr); :} ;
+
+// Expressions
+expr = numeral | idUse;
+
+numeral = NUMERAL.num {: return new Numeral(num); :} ;
+
+idUse = ID.id {: return new IdUse(id); :} ;
+
+idDecl = ID.id {: return new IdDecl(id); :} ;
