@@ -12,7 +12,7 @@
 %terminals ID;
 
 // Self added terminals
-%terminals NUMERAL, INT, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN;
+%terminals NUMERAL, INT, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, MUL;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -25,6 +25,8 @@
 %typeof assign = "Assignment";
 %typeof numeral = "Numeral";
 %typeof idUse = "IdUse";
+%typeof add = "Add";
+%typeof mul = "Mul";
 
 %goal program;
 
@@ -51,7 +53,11 @@ decl = INT idDecl.id SEMI {: return new Declaration(id); :} ;
 assign = idDecl.id ASSIGN expr.expr SEMI {: return new Assignment(id, expr); :} ;
 
 // Expressions
-expr = numeral | idUse;
+expr = mul | add | numeral | idUse;
+
+add = expr.left ADD expr.right {: return new Add(left, right); :} ;
+
+mul = expr.left MUL expr.right {: return new Mul(left, right); :} ;
 
 numeral = NUMERAL.num {: return new Numeral(num); :} ;
 

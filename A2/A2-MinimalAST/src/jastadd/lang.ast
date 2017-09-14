@@ -9,5 +9,7 @@ Assignment : Statement ::= IdDecl Expression;
 abstract Expression;
 IdUse : Expression ::= <ID>;
 Numeral : Expression ::= <NUMERAL>;
+Add : Expression ::= left:Expression right:Expression;
+Mul : Expression ::= left:Expression right:Expression;
 
 IdDecl ::= <ID> ;
