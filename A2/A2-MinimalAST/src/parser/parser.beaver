@@ -11,8 +11,22 @@
 
 %terminals ID;
 
+// Self added terminals
+%terminals INT, LPAR, RPAR, LBRACE, RBRACE;
+
 %typeof program = "Program";
+%typeof function = "Function";
+%typeof functionList = "List";
+%typeof id = "IdDecl";
 
 %goal program;
 
-program = ID.id {: return new Program(id); :} ;
+program = functionList.a {: return new Program(a); :};
+
+functionList =
+    function.a {: return new List().add(a); :}
+    | functionList.a function.b {: return a.add(b); :} ;
+
+function = INT id.a LPAR RPAR LBRACE RBRACE {: return new Function(a); :} ;
+
+id = ID.id {: return new IdDecl(id); :} ;
