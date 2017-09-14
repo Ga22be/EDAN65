@@ -41,6 +41,7 @@ ID = [a-zA-Z]+
 ")"           { return sym(Terminals.RPAR); }
 "{"           { return sym(Terminals.LBRACE); }
 "}"           { return sym(Terminals.RBRACE); }
+";"           { return sym(Terminals.SEMI); }
 {ID}          { return sym(Terminals.ID); }
 <<EOF>>       { return sym(Terminals.EOF); }
 

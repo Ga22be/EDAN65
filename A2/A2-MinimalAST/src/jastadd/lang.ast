@@ -1,5 +1,8 @@
 Program ::= Function*;
 
-Function ::= IdDecl ;
+Function ::= IdDecl Statement*;
+
+abstract Statement;
+Declaration : Statement ::= IdDecl;
 
 IdDecl ::= <ID> ;

@@ -12,21 +12,34 @@
 %terminals ID;
 
 // Self added terminals
-%terminals INT, LPAR, RPAR, LBRACE, RBRACE;
+%terminals INT, LPAR, RPAR, LBRACE, RBRACE, SEMI;
 
 %typeof program = "Program";
 %typeof function = "Function";
 %typeof functionList = "List";
 %typeof id = "IdDecl";
+%typeof stmtList = "List";
+%typeof decl = "Declaration";
 
 %goal program;
 
 program = functionList.a {: return new Program(a); :};
 
 functionList =
-    function.a {: return new List().add(a); :}
-    | functionList.a function.b {: return a.add(b); :} ;
+    function.func {: return new List().add(func); :}
+    | functionList.funcList function.func {: return funcList.add(func); :} ;
 
-function = INT id.a LPAR RPAR LBRACE RBRACE {: return new Function(a); :} ;
+function =
+    INT id.funcID LPAR RPAR LBRACE stmtList.listOfStmt RBRACE {: return new Function(funcID, listOfStmt); :}
+    | INT id.funcID LPAR RPAR LBRACE RBRACE {: return new Function(funcID, new List()); :}
+    ;
+
+stmtList =
+    stmt.stmt {: return new List().add(stmt); :}
+    | stmtList.stmtList stmt.stmt {: return stmtList.add(stmt); :} ;
+
+stmt = decl;
+
+decl = INT id.id SEMI {: return new Declaration(id); :};
 
 id = ID.id {: return new IdDecl(id); :} ;
