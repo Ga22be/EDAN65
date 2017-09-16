@@ -27,6 +27,8 @@
 %typeof idUse = "IdUse";
 %typeof add = "Add";
 %typeof mul = "Mul";
+%typeof term = "Term";
+%typeof factor = "Factor";
 
 %goal program;
 
@@ -53,11 +55,15 @@ decl = INT idDecl.id SEMI {: return new Declaration(id); :} ;
 assign = idDecl.id ASSIGN expr.expr SEMI {: return new Assignment(id, expr); :} ;
 
 // Expressions
-expr = mul | add | numeral | idUse;
+expr = add | term; // | numeral | idUse;
 
-add = expr.left ADD expr.right {: return new Add(left, right); :} ;
+add = expr.expr ADD term.term {:return new Add(expr, term); :};
 
-mul = expr.left MUL expr.right {: return new Mul(left, right); :} ;
+term = mul | factor;
+
+mul = term.term MUL factor.factor {: return new Mul(term, factor); :};
+
+factor = idUse | numeral | LPAR expr RPAR ;
 
 numeral = NUMERAL.num {: return new Numeral(num); :} ;
 

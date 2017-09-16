@@ -5,11 +5,16 @@ Function ::= IdDecl Statement*;
 abstract Statement;
 Declaration : Statement ::= IdDecl;
 Assignment : Statement ::= IdDecl Expression;
+IdDecl ::= <ID> ;
 
 abstract Expression;
-IdUse : Expression ::= <ID>;
-Numeral : Expression ::= <NUMERAL>;
-Add : Expression ::= left:Expression right:Expression;
-Mul : Expression ::= left:Expression right:Expression;
+Add : Expression ::= Expression Term;
 
-IdDecl ::= <ID> ;
+abstract Term : Expression;
+Mul : Term ::= Term Factor;
+
+abstract Factor : Term;
+precFactor : Factor ::= Expression;
+
+IdUse : Factor ::= <ID>;
+Numeral : Factor ::= <NUMERAL>;
