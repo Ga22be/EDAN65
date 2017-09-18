@@ -5,9 +5,14 @@ Function ::= IdDecl Parameter* Statement*;
 Parameter ::= IdDecl;
 
 abstract Statement;
+IfStatement : Statement ::= Comparison Statement*;
 Declaration : Statement ::= IdDecl;
 Assignment : Statement ::= IdDecl Expression;
 IdDecl ::= <ID>;
+
+abstract Comparison;
+LesserThan : Comparison ::= Left:Expression Right:Expression;
+GreaterThan : Comparison ::= Left:Expression Right:Expression;
 
 abstract Expression;
 Add : Expression ::= Expression Term;

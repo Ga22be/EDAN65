@@ -12,7 +12,7 @@
 %terminals ID;
 
 // Self added terminals
-%terminals NUMERAL, INT, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, SUB, MUL, DIV, MOD, COMMA;
+%terminals NUMERAL, INT, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, SUB, MUL, DIV, MOD, COMMA, IF, LT, GT;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -34,6 +34,10 @@
 %typeof mod = "Mod";
 %typeof term = "Term";
 %typeof factor = "Factor";
+%typeof ifStmt = "IfStatement";
+%typeof lt = "LesserThan";
+%typeof gt = "GreaterThan";
+%typeof comparison = "Comparison";
 
 %goal program;
 
@@ -45,7 +49,9 @@ functionList =
     | functionList.funcList function.func {: return funcList.add(func); :} ;
 
 function =
-    INT idDecl.funcID LPAR paramList.listOfParams RPAR LBRACE stmtList.listOfStmts RBRACE {: return new Function(funcID, listOfParams, listOfStmts); :} ;
+    INT idDecl.funcID LPAR paramList.listOfParams RPAR LBRACE stmtList.listOfStmts RBRACE {: return new Function(funcID, listOfParams, listOfStmts); :}
+    |   INT idDecl.funcID LPAR paramList.listOfParams RPAR LBRACE RBRACE {: return new Function(funcID, listOfParams, new List()); :}
+    ;
 
 // Parameters
 paramList =
@@ -59,15 +65,26 @@ parameter = INT idDecl.paramID {: return new Parameter(paramID); :};
 // Statements
 stmtList =
     // Empty
-    {: return new List(); :}
-    | stmt.stmt {: return new List().add(stmt); :}
+    //{: return new List(); :}
+    //|
+    stmt.stmt {: return new List().add(stmt); :}
     | stmtList.stmtList stmt.stmt {: return stmtList.add(stmt); :} ;
 
-stmt = decl | assign ;
+stmt = ifStmt | decl | assign;
+
+ifStmt = IF LPAR comparison.comp RPAR LBRACE stmtList.listOfStmts RBRACE {: return new IfStatement(comp, listOfStmts); :}
+    | IF LPAR comparison.comp RPAR LBRACE RBRACE {: return new IfStatement(comp, new List()); :}
+;
 
 decl = INT idDecl.id SEMI {: return new Declaration(id); :} ;
 
 assign = idDecl.id ASSIGN expr.expr SEMI {: return new Assignment(id, expr); :} ;
+
+// Comparisons
+comparison = lt | gt;
+
+lt = expr.left LT expr.right {: return new LesserThan(left, right); :} ;
+gt = expr.left GT expr.right {: return new GreaterThan(left, right); :} ;
 
 // Expressions
 expr = add | sub | term;

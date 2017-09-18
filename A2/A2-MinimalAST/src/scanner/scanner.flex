@@ -50,6 +50,9 @@ Numeral = [0-9]+
 "/"           { return sym(Terminals.DIV); }
 "%"           { return sym(Terminals.MOD); }
 ","           { return sym(Terminals.COMMA); }
+"<"           { return sym(Terminals.LT); }
+">"           { return sym(Terminals.GT); }
+"if"          { return sym(Terminals.IF); }
 {Numeral}     { return sym(Terminals.NUMERAL); }
 {ID}          { return sym(Terminals.ID); }
 <<EOF>>       { return sym(Terminals.EOF); }
