@@ -3,6 +3,7 @@ Program
     Function
       IdDecl ID="div"
       List
+      List
         Declaration
           IdDecl ID="a"
         Assignment

@@ -1,11 +1,13 @@
 Program ::= Function*;
 
-Function ::= IdDecl Statement*;
+Function ::= IdDecl Parameter* Statement*;
+
+Parameter ::= IdDecl;
 
 abstract Statement;
 Declaration : Statement ::= IdDecl;
 Assignment : Statement ::= IdDecl Expression;
-IdDecl ::= <ID> ;
+IdDecl ::= <ID>;
 
 abstract Expression;
 Add : Expression ::= Expression Term;

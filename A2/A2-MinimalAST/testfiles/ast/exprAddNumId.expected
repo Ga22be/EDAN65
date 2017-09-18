@@ -3,6 +3,7 @@ Program
     Function
       IdDecl ID="add"
       List
+      List
         Declaration
           IdDecl ID="a"
         Declaration

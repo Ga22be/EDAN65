@@ -12,11 +12,13 @@
 %terminals ID;
 
 // Self added terminals
-%terminals NUMERAL, INT, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, SUB, MUL, DIV, MOD;
+%terminals NUMERAL, INT, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, SUB, MUL, DIV, MOD, COMMA;
 
 %typeof program = "Program";
 %typeof function = "Function";
 %typeof functionList = "List";
+%typeof parameter = "Parameter";
+%typeof paramList = "List";
 %typeof idDecl = "IdDecl";
 %typeof stmtList = "List";
 %typeof stmt = "Statement";
@@ -37,20 +39,30 @@
 
 program = functionList.a {: return new Program(a); :};
 
+// Functions
 functionList =
     function.func {: return new List().add(func); :}
     | functionList.funcList function.func {: return funcList.add(func); :} ;
 
 function =
-    INT idDecl.funcID LPAR RPAR LBRACE stmtList.listOfStmt RBRACE {: return new Function(funcID, listOfStmt); :}
-    | INT idDecl.funcID LPAR RPAR LBRACE RBRACE {: return new Function(funcID, new List()); :}
-    ;
+    INT idDecl.funcID LPAR paramList.listOfParams RPAR LBRACE stmtList.listOfStmts RBRACE {: return new Function(funcID, listOfParams, listOfStmts); :} ;
 
-stmtList =
-    stmt.stmt {: return new List().add(stmt); :}
-    | stmtList.stmtList stmt.stmt {: return stmtList.add(stmt); :} ;
+// Parameters
+paramList =
+    // Empty
+    {: return new List(); :}
+    | parameter.param {: return new List().add(param); :}
+    | paramList.paramList COMMA parameter.param {: return paramList.add(param); :} ;
+
+parameter = INT idDecl.paramID {: return new Parameter(paramID); :};
 
 // Statements
+stmtList =
+    // Empty
+    {: return new List(); :}
+    | stmt.stmt {: return new List().add(stmt); :}
+    | stmtList.stmtList stmt.stmt {: return stmtList.add(stmt); :} ;
+
 stmt = decl | assign ;
 
 decl = INT idDecl.id SEMI {: return new Declaration(id); :} ;
