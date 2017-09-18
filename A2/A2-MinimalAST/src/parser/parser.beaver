@@ -12,7 +12,7 @@
 %terminals ID;
 
 // Self added terminals
-%terminals NUMERAL, INT, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, MUL;
+%terminals NUMERAL, INT, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, SUB, MUL, DIV, MOD;
 
 %typeof program = "Program";
 %typeof function = "Function";
@@ -26,7 +26,10 @@
 %typeof numeral = "Numeral";
 %typeof idUse = "IdUse";
 %typeof add = "Add";
+%typeof sub = "Sub";
 %typeof mul = "Mul";
+%typeof div = "Div";
+%typeof mod = "Mod";
 %typeof term = "Term";
 %typeof factor = "Factor";
 
@@ -55,14 +58,19 @@ decl = INT idDecl.id SEMI {: return new Declaration(id); :} ;
 assign = idDecl.id ASSIGN expr.expr SEMI {: return new Assignment(id, expr); :} ;
 
 // Expressions
-expr = add | term; // | numeral | idUse;
+expr = add | sub | term;
 
-add = expr.expr ADD term.term {:return new Add(expr, term); :};
+add = expr.expr ADD term.term {: return new Add(expr, term); :} ;
+sub = expr.expr SUB term.term {: return new Sub(expr, term); :} ;
 
-term = mul | factor;
+// Terms
+term = mul | div | mod | factor;
 
-mul = term.term MUL factor.factor {: return new Mul(term, factor); :};
+mul = term.term MUL factor.factor {: return new Mul(term, factor); :} ;
+div = term.term DIV factor.factor {: return new Div(term, factor); :} ;
+mod = term.term MOD factor.factor {: return new Mod(term, factor); :} ;
 
+// Factors
 factor = idUse | numeral | LPAR expr RPAR ;
 
 numeral = NUMERAL.num {: return new Numeral(num); :} ;

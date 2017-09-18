@@ -9,9 +9,12 @@ IdDecl ::= <ID> ;
 
 abstract Expression;
 Add : Expression ::= Expression Term;
+Sub : Expression ::= Expression Term;
 
 abstract Term : Expression;
 Mul : Term ::= Term Factor;
+Div : Term ::= Term Factor;
+Mod : Term ::= Term Factor;
 
 abstract Factor : Term;
 precFactor : Factor ::= Expression;
