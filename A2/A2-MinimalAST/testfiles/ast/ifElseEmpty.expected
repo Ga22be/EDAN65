@@ -13,6 +13,6 @@ Program
             IdUse ID="house"
             IdUse ID="boat"
           List
-            Declaration
-              IdDecl ID="a"
           Opt
+            Else
+              List

@@ -1,0 +1,9 @@
+int a(int house, int boat) {
+    if(house < boat) {
+        int a;
+        a = house - boat;
+    } else {
+        int b;
+        b = boat - house;
+    }
+}

@@ -5,14 +5,21 @@ Function ::= IdDecl Parameter* Statement*;
 Parameter ::= IdDecl;
 
 abstract Statement;
-IfStatement : Statement ::= Comparison Statement*;
+IfStatement : Statement ::= Comparison Statement* [Else];
+Else ::= Statement*;
+WhileStatement : Statement ::= Comparison Statement*;
 Declaration : Statement ::= IdDecl;
 Assignment : Statement ::= IdDecl Expression;
+DeclAssignment : Statement ::= IdDecl Expression;
+FunctionCall : Statement ::= FunctionUse;
+Return : Statement ::= Expression;
 IdDecl ::= <ID>;
 
 abstract Comparison;
 LesserThan : Comparison ::= Left:Expression Right:Expression;
 GreaterThan : Comparison ::= Left:Expression Right:Expression;
+Equal : Comparison ::= Left:Expression Right:Expression;
+NotEqual : Comparison ::= Left:Expression Right:Expression;
 
 abstract Expression;
 Add : Expression ::= Expression Term;
@@ -28,3 +35,4 @@ precFactor : Factor ::= Expression;
 
 IdUse : Factor ::= <ID>;
 Numeral : Factor ::= <NUMERAL>;
+FunctionUse : Factor ::= Name:IdUse Arguments:Expression*;
