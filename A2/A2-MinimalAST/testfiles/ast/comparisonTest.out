@@ -31,6 +31,10 @@ Program
                         Declaration
                           IdDecl ID="a"
                       Opt
+                        Else
+                          List
                   Opt
               Opt
+                Else
+                  List
           Opt
