@@ -22,17 +22,13 @@ Equal : Comparison ::= Left:Expression Right:Expression;
 NotEqual : Comparison ::= Left:Expression Right:Expression;
 
 abstract Expression;
-Add : Expression ::= Expression Term;
-Sub : Expression ::= Expression Term;
+Add : Expression ::= Left:Expression Right:Expression;
+Sub : Expression ::=  Left:Expression Right:Expression;
 
-abstract Term : Expression;
-Mul : Term ::= Term Factor;
-Div : Term ::= Term Factor;
-Mod : Term ::= Term Factor;
+Mul : Expression ::=  Left:Expression Right:Expression;
+Div : Expression ::=  Left:Expression Right:Expression;
+Mod : Expression ::=  Left:Expression Right:Expression;
 
-abstract Factor : Term;
-precFactor : Factor ::= Expression;
-
-IdUse : Factor ::= <ID>;
-Numeral : Factor ::= <NUMERAL>;
-FunctionUse : Factor ::= Name:IdUse Arguments:Expression*;
+IdUse : Expression ::= <ID>;
+Numeral : Expression ::= <NUMERAL>;
+FunctionUse : Expression ::= Name:IdUse Arguments:Expression*;
