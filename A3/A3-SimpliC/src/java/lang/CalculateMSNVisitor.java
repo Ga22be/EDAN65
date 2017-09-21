@@ -1,7 +1,6 @@
 package lang;
 
 import lang.ast.*;
-
 import java.util.TreeSet;
 
 /**
@@ -12,6 +11,7 @@ public class CalculateMSNVisitor extends TraversingVisitor{
         CalculateMSNVisitor v = new CalculateMSNVisitor();
         n.accept(v, 0);
         Integer[] msnArray = v.biggestMSN.toArray(new Integer[v.biggestMSN.size()]);
+
         return msnArray[msnArray.length-1];
     }
 

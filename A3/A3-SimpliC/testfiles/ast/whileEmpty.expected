@@ -13,16 +13,3 @@ Program
             IdUse ID="house"
             IdUse ID="boat"
           List
-            IfStatement
-              GreaterThan
-                Sub
-                  IdUse ID="house"
-                  IdUse ID="boat"
-                Numeral NUMERAL="7"
-              List
-                Assignment
-                  IdDecl ID="house"
-                  Sub
-                    IdUse ID="house"
-                    Numeral NUMERAL="1"
-              Opt
