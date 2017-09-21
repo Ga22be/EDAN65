@@ -1,0 +1,4 @@
+int a(int house) {
+    int c;
+    c = 1 * 3 / 2 + house;
+}

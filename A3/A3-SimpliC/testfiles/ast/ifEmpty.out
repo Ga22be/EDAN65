@@ -1,0 +1,16 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+        Parameter
+          IdDecl ID="house"
+        Parameter
+          IdDecl ID="boat"
+      List
+        IfStatement
+          LesserThan
+            IdUse ID="house"
+            IdUse ID="boat"
+          List
+          Opt

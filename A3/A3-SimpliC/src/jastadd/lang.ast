@@ -1,0 +1,34 @@
+Program ::= Function*;
+
+Function ::= IdDecl Parameter* Statement*;
+
+Parameter ::= IdDecl;
+
+abstract Statement;
+IfStatement : Statement ::= Comparison Statement* [Else];
+Else ::= Statement*;
+WhileStatement : Statement ::= Comparison Statement*;
+Declaration : Statement ::= IdDecl;
+Assignment : Statement ::= IdDecl Expression;
+DeclAssignment : Statement ::= IdDecl Expression;
+FunctionCall : Statement ::= FunctionUse;
+Return : Statement ::= Expression;
+IdDecl ::= <ID>;
+
+abstract Comparison;
+LesserThan : Comparison ::= Left:Expression Right:Expression;
+GreaterThan : Comparison ::= Left:Expression Right:Expression;
+Equal : Comparison ::= Left:Expression Right:Expression;
+NotEqual : Comparison ::= Left:Expression Right:Expression;
+
+abstract Expression;
+Add : Expression ::= Left:Expression Right:Expression;
+Sub : Expression ::=  Left:Expression Right:Expression;
+
+Mul : Expression ::=  Left:Expression Right:Expression;
+Div : Expression ::=  Left:Expression Right:Expression;
+Mod : Expression ::=  Left:Expression Right:Expression;
+
+IdUse : Expression ::= <ID>;
+Numeral : Expression ::= <NUMERAL>;
+FunctionUse : Expression ::= Name:IdUse Arguments:Expression*;

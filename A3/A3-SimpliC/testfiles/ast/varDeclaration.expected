@@ -1,0 +1,10 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+      List
+        Declaration
+          IdDecl ID="x"
+        Declaration
+          IdDecl ID="y"

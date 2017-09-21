@@ -1,0 +1,23 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+        Parameter
+          IdDecl ID="house"
+        Parameter
+          IdDecl ID="boat"
+      List
+        Declaration
+          IdDecl ID="a"
+        Assignment
+          IdDecl ID="a"
+          Add
+            FunctionUse
+              IdUse ID="b"
+              List
+                IdUse ID="house"
+                IdUse ID="boat"
+            FunctionUse
+              IdUse ID="c"
+              List

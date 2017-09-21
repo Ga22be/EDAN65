@@ -1,0 +1,14 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+        Parameter
+          IdDecl ID="house"
+        Parameter
+          IdDecl ID="boat"
+      List
+        FunctionCall
+          FunctionUse
+            IdUse ID="b"
+            List
