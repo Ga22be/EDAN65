@@ -130,7 +130,7 @@ aspect PrettyPrint {
 
 	public void NotEqual.prettyPrint(PrintStream out, String ind) {
 		getLeft().prettyPrint(out, ind);
-		out.print(" =! ");
+		out.print(" != ");
 		getRight().prettyPrint(out, ind);
 	}
 
@@ -190,7 +190,7 @@ aspect PrettyPrint {
 		if(hasArguments()){
 		    for(int i = 0; i < getNumArguments(); i++){
 		        getArguments(i).prettyPrint(out, ind);
-		        if(i - (getNumArguments()-1) > 0){
+		        if((getNumArguments()-1) - i  > 0){
 		            out.print(", ");
 		        }
 		    }
