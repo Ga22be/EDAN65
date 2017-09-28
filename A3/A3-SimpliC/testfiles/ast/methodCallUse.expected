@@ -11,7 +11,7 @@ Program
         Declaration
           IdDecl ID="a"
         Assignment
-          IdDecl ID="a"
+          IdUse ID="a"
           Add
             FunctionUse
               IdUse ID="b"

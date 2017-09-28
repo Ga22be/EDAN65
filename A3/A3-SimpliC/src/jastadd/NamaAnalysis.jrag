@@ -83,6 +83,39 @@ aspect NameAnalysis {
 		}
 	}
 
+	public void IfStatement.checkNames(PrintStream err, SymbolTable symbols) {
+	    getComparison().checkNames(err, symbols);
+	    symbols = symbols.push();
+		if(hasStatement()){
+		    for(int i = 0; i < getNumStatement(); i++){
+		        getStatement(i).checkNames(err, symbols);
+		    }
+		}
+		if(hasElse()){
+		    getElse().checkNames(err, symbols);
+		}
+	}
+
+	public void Else.checkNames(PrintStream err, SymbolTable symbols) {
+	    symbols = symbols.push();
+		if(hasStatement()){
+		    for(int i = 0; i < getNumStatement(); i++){
+		        getStatement(i).checkNames(err, symbols);
+		    }
+		}
+	}
+
+	public void WhileStatement.checkNames(PrintStream err, SymbolTable symbols) {
+	    getComparison().checkNames(err, symbols);
+	    symbols = symbols.push();
+		if(hasStatement()){
+		    for(int i = 0; i < getNumStatement(); i++){
+		        getStatement(i).checkNames(err, symbols);
+		    }
+		}
+
+	}
+
 	public void Declaration.checkNames(PrintStream err, SymbolTable symbols) {
 	    getIdDecl().checkNames(err, symbols);
 	}
@@ -104,23 +137,6 @@ aspect NameAnalysis {
 	public void Return.checkNames(PrintStream err, SymbolTable symbols) {
     	getExpression().checkNames(err, symbols);
     }
-
-    /**
-	public void Let.checkNames(PrintStream err, SymbolTable symbols) {
-		symbols = symbols.push();
-		for (int i = 0; i < getNumBinding(); ++i) {
-			getBinding(i).checkNames(err, symbols);
-		}
-		getExpr().checkNames(err, symbols);
-	}
-
-
-	public void Ask.checkNames(PrintStream err, SymbolTable symbols) {
-		if (hasDefault()) {
-			getDefault().checkNames(err, symbols.push());
-		}
-	}
-	*/
 
 	public void IdDecl.checkNames(PrintStream err, SymbolTable symbols) {
 		if (!symbols.declare(getID())) {

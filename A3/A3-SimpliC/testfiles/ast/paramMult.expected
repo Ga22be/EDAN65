@@ -11,7 +11,7 @@ Program
         Declaration
           IdDecl ID="c"
         Assignment
-          IdDecl ID="c"
+          IdUse ID="c"
           Add
             Div
               Mul

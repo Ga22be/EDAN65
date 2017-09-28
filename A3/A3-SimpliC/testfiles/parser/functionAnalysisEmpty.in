@@ -1,10 +1,23 @@
 int func1(int house, int boat) {
     int i = 7;
+    while (house < i) {
+        int i;
+        i = i + 3;
+    }
+    return boat;
 }
-int func1(int house, int boat) {
+int func2(int house, int boat) {
     int a;
     int b;
     a = 5 + b;
     int c = 7;
-    func1(5, 3);
+    if(a < house) {
+        int c = 3;
+        func1(5, 3);
+        if(c < boat) {
+            func1(5, 3, 7);
+        } else {
+            int c = 0;
+        }
+    }
 }

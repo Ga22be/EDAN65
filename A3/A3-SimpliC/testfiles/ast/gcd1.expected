@@ -19,7 +19,7 @@ Program
                 IdUse ID="b"
               List
                 Assignment
-                  IdDecl ID="a"
+                  IdUse ID="a"
                   Sub
                     IdUse ID="a"
                     IdUse ID="b"
@@ -27,7 +27,7 @@ Program
                 Else
                   List
                     Assignment
-                      IdDecl ID="b"
+                      IdUse ID="b"
                       Sub
                         IdUse ID="b"
                         IdUse ID="a"

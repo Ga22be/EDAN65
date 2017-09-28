@@ -1,6 +1,14 @@
 Program
   List
     Function
+      IdDecl ID="print"
+      List
+      List
+    Function
+      IdDecl ID="read"
+      List
+      List
+    Function
       IdDecl ID="gcd1"
       List
         Parameter
@@ -19,7 +27,7 @@ Program
                 IdUse ID="b"
               List
                 Assignment
-                  IdDecl ID="a"
+                  IdUse ID="a"
                   Sub
                     IdUse ID="a"
                     IdUse ID="b"
@@ -27,7 +35,7 @@ Program
                 Else
                   List
                     Assignment
-                      IdDecl ID="b"
+                      IdUse ID="b"
                       Sub
                         IdUse ID="b"
                         IdUse ID="a"
@@ -66,12 +74,12 @@ Program
         Declaration
           IdDecl ID="b"
         Assignment
-          IdDecl ID="a"
+          IdUse ID="a"
           FunctionUse
             IdUse ID="read"
             List
         Assignment
-          IdDecl ID="b"
+          IdUse ID="b"
           FunctionUse
             IdUse ID="read"
             List
