@@ -1,0 +1,10 @@
+int func1(int house, int boat) {
+    int i = 7;
+}
+int func1(int house, int boat) {
+    int a;
+    int b;
+    a = 5 + b;
+    int c = 7;
+    func1(5, 3);
+}

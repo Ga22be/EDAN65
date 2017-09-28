@@ -38,6 +38,7 @@ public class Compiler {
             DrAST_root_node = program; //Enable debugging with DrAST
 			System.out.println(program.dumpTree());
 			program.prettyPrint(System.out);
+			program.checkNames(System.err);
 			System.out.println("The Maximal Statement Nesting for the program is: " + CalculateMSNVisitor.result(program));
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");

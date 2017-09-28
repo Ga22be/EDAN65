@@ -7,7 +7,7 @@ Program
         Declaration
           IdDecl ID="a"
         Assignment
-          IdDecl ID="a"
+          IdUse ID="a"
           Mul
             Numeral NUMERAL="9"
             Numeral NUMERAL="3"

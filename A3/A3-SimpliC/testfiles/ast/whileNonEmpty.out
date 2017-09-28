@@ -21,7 +21,7 @@ Program
                 Numeral NUMERAL="7"
               List
                 Assignment
-                  IdDecl ID="house"
+                  IdUse ID="house"
                   Sub
                     IdUse ID="house"
                     Numeral NUMERAL="1"

@@ -108,7 +108,7 @@ aspect PrettyPrint {
 
 	public void Assignment.prettyPrint(PrintStream out, String ind) {
         out.print(ind);
-        getIdDecl().prettyPrint(out, ind);
+        getIdUse().prettyPrint(out, ind);
         out.print(" = ");
         getExpression().prettyPrint(out, ind);
         out.print(";");

@@ -108,7 +108,7 @@ return = RETURN expr.expr SEMI {: return new Return(expr); :} ;
 
 decl = INT idDecl.id SEMI {: return new Declaration(id); :} ;
 
-assign = idDecl.id ASSIGN expr.expr SEMI {: return new Assignment(id, expr); :} ;
+assign = idUse.id ASSIGN expr.expr SEMI {: return new Assignment(id, expr); :} ;
 
 declAssign = INT idDecl.id ASSIGN expr.expr SEMI {: return new DeclAssignment(id, expr); :} ;
 

@@ -9,10 +9,10 @@ Program
         Declaration
           IdDecl ID="b"
         Assignment
-          IdDecl ID="b"
+          IdUse ID="b"
           Numeral NUMERAL="6"
         Assignment
-          IdDecl ID="a"
+          IdUse ID="a"
           Div
             Numeral NUMERAL="12"
             IdUse ID="b"
