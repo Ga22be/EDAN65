@@ -25,7 +25,11 @@ aspect PrettyPrint {
 		getRight().prettyPrint(out, ind + INDENTATION);
 	}
 	public void Leaf.prettyPrint(PrintStream out, String ind) {
-		out.print(ind);
+        if(isMinValue()){
+    		out.print(ind);
+            out.println("*** MINIMUM ***");
+        }
+        out.print(ind);
 		out.println("Leaf " + getNumber());
 	}
 }
