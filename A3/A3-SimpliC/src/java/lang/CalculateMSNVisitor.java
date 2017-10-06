@@ -19,19 +19,25 @@ public class CalculateMSNVisitor extends TraversingVisitor{
 
     public Object visit(Function node, Object data) {
         int currentMSN = (int) data;
-        biggestMSN.add(++currentMSN);
+        add(++currentMSN);
         return visitChildren(node, currentMSN);
+    }
+
+    private int max;
+    private void add(int i) {
+        if (i > max) max = i;
+        biggestMSN.add(++i);
     }
 
     public Object visit(IfStatement node, Object data) {
         int currentMSN = (int) data;
-        biggestMSN.add(++currentMSN);
+        add(++currentMSN);
         return visitChildren(node, currentMSN);
     }
 
     public Object visit(WhileStatement node, Object data) {
         int currentMSN = (int) data;
-        biggestMSN.add(++currentMSN);
+        add(++currentMSN);
         return visitChildren(node, currentMSN);
     }
 }
