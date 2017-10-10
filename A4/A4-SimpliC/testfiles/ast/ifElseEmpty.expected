@@ -8,8 +8,11 @@ Program
         Parameter
           IdDecl ID="boat"
       List
-        WhileStatement
+        IfStatement
           LesserThan
             IdUse ID="house"
             IdUse ID="boat"
           List
+          Opt
+            Else
+              List

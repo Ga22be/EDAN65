@@ -1,0 +1,21 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+      List
+        Parameter
+          IdDecl ID="house"
+        Parameter
+          IdDecl ID="boat"
+      List
+        Declaration
+          IdDecl ID="c"
+        Assignment
+          IdUse ID="c"
+          Add
+            Div
+              Mul
+                IdUse ID="boat"
+                Numeral NUMERAL="3"
+              Numeral NUMERAL="2"
+            IdUse ID="house"

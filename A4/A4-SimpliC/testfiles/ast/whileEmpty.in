@@ -1,0 +1,5 @@
+int a(int house, int boat) {
+    while (house < boat) {
+
+    }
+}

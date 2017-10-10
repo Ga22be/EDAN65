@@ -1,0 +1,123 @@
+Program
+  List
+    Function
+      IdDecl ID="print"
+      List
+      List
+    Function
+      IdDecl ID="read"
+      List
+      List
+    Function
+      IdDecl ID="gcd1"
+      List
+        Parameter
+          IdDecl ID="a"
+        Parameter
+          IdDecl ID="b"
+      List
+        WhileStatement
+          NotEqual
+            IdUse ID="a"
+            IdUse ID="b"
+          List
+            IfStatement
+              GreaterThan
+                IdUse ID="a"
+                IdUse ID="b"
+              List
+                Assignment
+                  IdUse ID="a"
+                  Sub
+                    IdUse ID="a"
+                    IdUse ID="b"
+              Opt
+                Else
+                  List
+                    Assignment
+                      IdUse ID="b"
+                      Sub
+                        IdUse ID="b"
+                        IdUse ID="a"
+        Return
+          IdUse ID="a"
+    Function
+      IdDecl ID="gcd2"
+      List
+        Parameter
+          IdDecl ID="a"
+        Parameter
+          IdDecl ID="b"
+      List
+        IfStatement
+          Equal
+            IdUse ID="b"
+            Numeral NUMERAL="0"
+          List
+            Return
+              IdUse ID="a"
+          Opt
+        Return
+          FunctionUse
+            IdUse ID="gcd2"
+            List
+              IdUse ID="b"
+              Mod
+                IdUse ID="a"
+                IdUse ID="b"
+    Function
+      IdDecl ID="main"
+      List
+      List
+        Declaration
+          IdDecl ID="a"
+        Declaration
+          IdDecl ID="b"
+        Assignment
+          IdUse ID="a"
+          FunctionUse
+            IdUse ID="read"
+            List
+        Assignment
+          IdUse ID="b"
+          FunctionUse
+            IdUse ID="read"
+            List
+        FunctionCall
+          FunctionUse
+            IdUse ID="print"
+            List
+              FunctionUse
+                IdUse ID="gcd1"
+                List
+                  IdUse ID="a"
+                  IdUse ID="b"
+        FunctionCall
+          FunctionUse
+            IdUse ID="print"
+            List
+              FunctionUse
+                IdUse ID="gcd2"
+                List
+                  IdUse ID="a"
+                  IdUse ID="b"
+        DeclAssignment
+          IdDecl ID="diff"
+          Sub
+            FunctionUse
+              IdUse ID="gcd1"
+              List
+                IdUse ID="a"
+                IdUse ID="b"
+            FunctionUse
+              IdUse ID="gcd2"
+              List
+                IdUse ID="a"
+                IdUse ID="b"
+        FunctionCall
+          FunctionUse
+            IdUse ID="print"
+            List
+              IdUse ID="diff"
+        Return
+          Numeral NUMERAL="0"

@@ -1,0 +1,6 @@
+int mul() {
+    int a;
+    int b;
+    b = 7;
+    a = 9 * b;
+}
