@@ -2,11 +2,14 @@ Program
   List
     Function
       IdDecl ID="a"
+        IntType
       List
         Parameter
           IdDecl ID="house"
+            IntType
         Parameter
           IdDecl ID="boat"
+            IntType
       List
         IfStatement
           LesserThan
@@ -15,6 +18,7 @@ Program
           List
             Declaration
               IdDecl ID="a"
+                IntType
             Assignment
               IdUse ID="a"
               Sub
@@ -25,6 +29,7 @@ Program
               List
                 Declaration
                   IdDecl ID="b"
+                    IntType
                 Assignment
                   IdUse ID="b"
                   Sub

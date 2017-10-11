@@ -42,4 +42,25 @@ aspect ErrorContributions {
 	IdUse contributes error("the definition of symbol '" + getID() + "' is circular")
 		when isCircular()
 		to Program.errors() for program();
+
+	BinExpression contributes error("type: " +
+    	getLeft().type().getClass().getSimpleName() +
+    	" != type: " +
+    	getRight().type().getClass().getSimpleName()) when isWrongType() to Program.errors() for program();
+
+    IfStatement contributes error("Expected boolean, got: " + getExpression().type().getClass().getSimpleName())
+	    when isWrongType()
+	    to Program.errors() for program();
+
+    WhileStatement contributes error("Expected boolean, got: " + getExpression().type().getClass().getSimpleName())
+	    when isWrongType()
+	    to Program.errors() for program();
+
+	FunctionUse contributes error("Tried to call function using variable declaration")
+	    when isVariableCall()
+	    to Program.errors() for program();
+
+	Assignment contributes error("Tried to re-assign a function declaration")
+	    when isFunctionReAssign()
+	    to Program.errors() for program();
 }

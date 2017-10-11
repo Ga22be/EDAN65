@@ -2,11 +2,14 @@ Program
   List
     Function
       IdDecl ID="gcd2"
+        IntType
       List
         Parameter
           IdDecl ID="a"
+            IntType
         Parameter
           IdDecl ID="b"
+            IntType
       List
         IfStatement
           Equal

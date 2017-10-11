@@ -1,5 +1,5 @@
 aspect UnknownDecl {
-	syn nta UnknownDecl Program.unknownDecl() = new UnknownDecl("<unknown>");
+	syn nta UnknownDecl Program.unknownDecl() = new UnknownDecl(new UnknownType(), "<unknown>");
 
 	inh UnknownDecl ASTNode.unknownDecl();
 	eq Program.getChild().unknownDecl() = unknownDecl();

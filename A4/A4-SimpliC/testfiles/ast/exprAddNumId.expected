@@ -2,12 +2,15 @@ Program
   List
     Function
       IdDecl ID="add"
+        IntType
       List
       List
         Declaration
           IdDecl ID="a"
+            IntType
         Declaration
           IdDecl ID="b"
+            IntType
         Assignment
           IdUse ID="b"
           Numeral NUMERAL="7"

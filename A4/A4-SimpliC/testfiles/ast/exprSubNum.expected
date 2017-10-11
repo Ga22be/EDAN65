@@ -2,10 +2,12 @@ Program
   List
     Function
       IdDecl ID="sub"
+        IntType
       List
       List
         Declaration
           IdDecl ID="a"
+            IntType
         Assignment
           IdUse ID="a"
           Sub

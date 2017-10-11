@@ -1,26 +1,30 @@
 Program ::= Function*;
 
+abstract Type;
+IntType: Type;
+BoolType: Type;
+UnknownType: Type;
+
 Function ::= IdDecl Parameter* Statement*;
 
 Parameter ::= IdDecl;
 
 abstract Statement;
-IfStatement : Statement ::= Comparison Statement* [Else];
+IfStatement : Statement ::= Expression Statement* [Else];
 Else ::= Statement*;
-WhileStatement : Statement ::= Comparison Statement*;
+WhileStatement : Statement ::= Expression Statement*;
 Declaration : Statement ::= IdDecl;
 Assignment : Statement ::= IdUse Expression;
 DeclAssignment : Statement ::= IdDecl Expression;
 FunctionCall : Statement ::= FunctionUse;
 Return : Statement ::= Expression;
-IdDecl ::= <ID>;
-UnknownDecl : IdDecl;
+IdDecl ::= Type <ID>;
 
-abstract Comparison;
-LesserThan : Comparison ::= Left:Expression Right:Expression;
-GreaterThan : Comparison ::= Left:Expression Right:Expression;
-Equal : Comparison ::= Left:Expression Right:Expression;
-NotEqual : Comparison ::= Left:Expression Right:Expression;
+//abstract Comparison;
+//LesserThan : Comparison ::= Left:Expression Right:Expression;
+//GreaterThan : Comparison ::= Left:Expression Right:Expression;
+//Equal : Comparison ::= Left:Expression Right:Expression;
+//NotEqual : Comparison ::= Left:Expression Right:Expression;
 
 abstract Expression;
 Add : Expression ::= Left:Expression Right:Expression;
@@ -30,6 +34,13 @@ Mul : Expression ::=  Left:Expression Right:Expression;
 Div : Expression ::=  Left:Expression Right:Expression;
 Mod : Expression ::=  Left:Expression Right:Expression;
 
+BinExpression : Expression ::= Left:Expression Right:Expression;
+LesserThan : BinExpression;
+GreaterThan : BinExpression;
+Equal : BinExpression;
+NotEqual : BinExpression;
+
 IdUse : Expression ::= <ID>;
 Numeral : Expression ::= <NUMERAL>;
 FunctionUse : Expression ::= Name:IdUse Arguments:Expression*;
+UnknownDecl : IdDecl;

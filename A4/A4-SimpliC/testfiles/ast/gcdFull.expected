@@ -2,19 +2,24 @@ Program
   List
     Function
       IdDecl ID="print"
+        IntType
       List
       List
     Function
       IdDecl ID="read"
+        IntType
       List
       List
     Function
       IdDecl ID="gcd1"
+        IntType
       List
         Parameter
           IdDecl ID="a"
+            IntType
         Parameter
           IdDecl ID="b"
+            IntType
       List
         WhileStatement
           NotEqual
@@ -43,11 +48,14 @@ Program
           IdUse ID="a"
     Function
       IdDecl ID="gcd2"
+        IntType
       List
         Parameter
           IdDecl ID="a"
+            IntType
         Parameter
           IdDecl ID="b"
+            IntType
       List
         IfStatement
           Equal
@@ -67,12 +75,15 @@ Program
                 IdUse ID="b"
     Function
       IdDecl ID="main"
+        IntType
       List
       List
         Declaration
           IdDecl ID="a"
+            IntType
         Declaration
           IdDecl ID="b"
+            IntType
         Assignment
           IdUse ID="a"
           FunctionUse
@@ -103,6 +114,7 @@ Program
                   IdUse ID="b"
         DeclAssignment
           IdDecl ID="diff"
+            IntType
           Sub
             FunctionUse
               IdUse ID="gcd1"

@@ -2,11 +2,14 @@ Program
   List
     Function
       IdDecl ID="a"
+        IntType
       List
         Parameter
           IdDecl ID="house"
+            IntType
         Parameter
           IdDecl ID="boat"
+            IntType
       List
         FunctionCall
           FunctionUse

@@ -2,5 +2,6 @@ Program
   List
     Function
       IdDecl ID="a"
+        IntType
       List
       List

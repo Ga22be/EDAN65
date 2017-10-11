@@ -4,10 +4,10 @@ aspect PredefFuncs {
 
         // Create objects of type FunctionDecl and add them to the list
 
-        Function read = new Function(new IdDecl("read"), new List(), new List());
+        Function read = new Function(new IdDecl(new IntType(), "read"), new List(), new List());
         list.add(read);
 
-        Function print = new Function(new IdDecl("print"), new List(), new List());
+        Function print = new Function(new IdDecl(new IntType(), "print"), new List(), new List());
         list.add(print);
 
         return list;

@@ -1,0 +1,8 @@
+bool abc(int house, int boat) {
+    house = 5;
+
+    int cat = 3;
+    if(cat < 5) {
+        int cat = 7;
+    }
+}

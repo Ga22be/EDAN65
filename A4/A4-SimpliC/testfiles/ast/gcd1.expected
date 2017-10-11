@@ -2,11 +2,14 @@ Program
   List
     Function
       IdDecl ID="gcd1"
+        IntType
       List
         Parameter
           IdDecl ID="a"
+            IntType
         Parameter
           IdDecl ID="b"
+            IntType
       List
         WhileStatement
           NotEqual

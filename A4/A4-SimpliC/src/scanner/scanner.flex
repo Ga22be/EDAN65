@@ -40,6 +40,7 @@ Comment = "//"~"\n"
 
 // token definitions
 "int"         { return sym(Terminals.INT); }
+"bool"        { return sym(Terminals.BOOL); }
 "("           { return sym(Terminals.LPAR); }
 ")"           { return sym(Terminals.RPAR); }
 "{"           { return sym(Terminals.LBRACE); }
