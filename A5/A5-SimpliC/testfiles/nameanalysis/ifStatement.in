@@ -1,0 +1,9 @@
+int test(int house, bool boat) {
+    if(house < 9) {
+        int a = 5;
+
+        int b;
+        b = 7 + a;
+        return a + house;
+    }
+}

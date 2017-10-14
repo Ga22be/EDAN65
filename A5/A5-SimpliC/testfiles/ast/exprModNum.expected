@@ -1,0 +1,15 @@
+Program
+  List
+    Function
+      IdDecl ID="mod"
+        IntType
+      List
+      List
+        Declaration
+          IdDecl ID="a"
+            IntType
+        Assignment
+          IdUse ID="a"
+          Mod
+            Numeral NUMERAL="7"
+            Numeral NUMERAL="2"

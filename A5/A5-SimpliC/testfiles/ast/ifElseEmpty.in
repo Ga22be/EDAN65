@@ -1,0 +1,7 @@
+int a(int house, int boat) {
+    if(house < boat) {
+
+    } else {
+
+    }
+}

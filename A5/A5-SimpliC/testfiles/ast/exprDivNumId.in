@@ -1,0 +1,6 @@
+int div() {
+    int a;
+    int b;
+    b = 6;
+    a = 12 / b;
+}

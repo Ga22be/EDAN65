@@ -47,7 +47,7 @@ aspect NameAnalysis {
     }
     syn IdDecl WhileStatement.localLookup(String name, int index) {
         for(int i = 0; i <= index; i++){
-            IdDecl decl = getStatement(index).localLookup(name);
+            IdDecl decl = getStatement(i).localLookup(name);
             if (!decl.isUnknown()){
                 return decl;
             }
@@ -60,7 +60,7 @@ aspect NameAnalysis {
 
     syn IdDecl IfStatement.localLookup(String name, int index) {
         for(int i = 0; i <= index; i++){
-            IdDecl decl = getStatement(index).localLookup(name);
+            IdDecl decl = getStatement(i).localLookup(name);
             if(!decl.isUnknown()){
                 return decl;
             }
@@ -70,7 +70,7 @@ aspect NameAnalysis {
     }
     syn IdDecl Else.localLookup(String name, int index) {
         for(int i = 0; i <= index; i++) {
-            IdDecl decl = getStatement(index).localLookup(name);
+            IdDecl decl = getStatement(i).localLookup(name);
             if(!decl.isUnknown()) {
                 return decl;
             }

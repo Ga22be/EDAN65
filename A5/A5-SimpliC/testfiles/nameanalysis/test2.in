@@ -1,0 +1,4 @@
+int a() {
+    int c = b;
+    int b = 2;
+}

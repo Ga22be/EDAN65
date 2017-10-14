@@ -1,0 +1,31 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+        IntType
+      List
+        Parameter
+          IdDecl ID="house"
+            IntType
+        Parameter
+          IdDecl ID="boat"
+            IntType
+      List
+        WhileStatement
+          LesserThan
+            IdUse ID="house"
+            IdUse ID="boat"
+          List
+            IfStatement
+              GreaterThan
+                Sub
+                  IdUse ID="house"
+                  IdUse ID="boat"
+                Numeral NUMERAL="7"
+              List
+                Assignment
+                  IdUse ID="house"
+                  Sub
+                    IdUse ID="house"
+                    Numeral NUMERAL="1"
+              Opt

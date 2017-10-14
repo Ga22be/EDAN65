@@ -1,0 +1,38 @@
+aspect Interpreter {
+    public class ActivationRecord {
+        private HashMap<String, Integer> vars;
+
+
+        public ActivationRecord() {
+             vars = new HashMap<String, Integer>();
+        }
+
+
+    }
+
+    public void Program.eval() {
+        for(Function func : getFunctionList()) {
+            if(func.getIdDecl().getID().equals("main")) {
+                func.eval(new ActivationRecord());
+            }
+        }
+        // System.err.println("Program doesn't have main");
+        throw new RuntimeException();
+    }
+
+    public int Function.eval(ActivationRecord actrec) {
+        for(Statement stmt : getStatementList()) {
+            stmt.eval();
+        }
+        System.err.println("Is function");
+        throw new RuntimeException();
+    }
+
+    public void Statement.eval(ActivationRecord actrec) {
+        throw new RuntimeException();
+    }
+
+    public int Expression.eval(ActivationRecord actrec) {
+        throw new RuntimeException();
+    }
+}

@@ -1,0 +1,6 @@
+int mod() {
+    int a;
+    int b;
+    b = 5;
+    a = 12 / b;
+}

@@ -1,0 +1,44 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+        IntType
+      List
+        Parameter
+          IdDecl ID="house"
+            IntType
+        Parameter
+          IdDecl ID="boat"
+            IntType
+      List
+        IfStatement
+          NotEqual
+            IdUse ID="house"
+            IdUse ID="boat"
+          List
+            IfStatement
+              Equal
+                IdUse ID="house"
+                IdUse ID="boat"
+              List
+                IfStatement
+                  LesserThan
+                    IdUse ID="house"
+                    IdUse ID="boat"
+                  List
+                    IfStatement
+                      GreaterThan
+                        IdUse ID="house"
+                        IdUse ID="boat"
+                      List
+                        Declaration
+                          IdDecl ID="a"
+                            IntType
+                      Opt
+                        Else
+                          List
+                  Opt
+              Opt
+                Else
+                  List
+          Opt

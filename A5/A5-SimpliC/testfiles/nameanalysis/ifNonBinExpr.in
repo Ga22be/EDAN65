@@ -1,0 +1,10 @@
+bool isIt(int boat) {
+    if(boat < house) {
+        return boat;
+    }
+
+    if(boat + 3){
+        print(boat);
+    }
+
+}

@@ -1,0 +1,7 @@
+int a(int house, int boat) {
+    while (house < boat) {
+        if (house - boat > 7) {
+            house = house - 1;
+        }
+    }
+}
