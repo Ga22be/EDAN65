@@ -36,7 +36,9 @@ Mod : Expression ::=  Left:Expression Right:Expression;
 
 BinExpression : Expression ::= Left:Expression Right:Expression;
 LesserThan : BinExpression;
+LesserOrEqual : BinExpression;
 GreaterThan : BinExpression;
+GreaterOrEqual : BinExpression;
 Equal : BinExpression;
 NotEqual : BinExpression;
 

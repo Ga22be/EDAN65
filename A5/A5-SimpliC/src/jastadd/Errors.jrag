@@ -60,6 +60,10 @@ aspect ErrorContributions {
 	    when isVariableCall()
 	    to Program.errors() for program();
 
+	FunctionUse contributes error("Tried to call function using wrong amount of arguments.")
+	    when !isCorrectArgAmount()
+	    to Program.errors() for program();
+
 	Assignment contributes error("Tried to re-assign a function declaration")
 	    when isFunctionReAssign()
 	    to Program.errors() for program();

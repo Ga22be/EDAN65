@@ -140,9 +140,21 @@ aspect PrettyPrint {
 		getRight().prettyPrint(out, ind);
 	}
 
+	public void LesserOrEqual.prettyPrint(PrintStream out, String ind) {
+		getLeft().prettyPrint(out, ind);
+		out.print(" <= ");
+		getRight().prettyPrint(out, ind);
+	}
+
 	public void GreaterThan.prettyPrint(PrintStream out, String ind) {
 		getLeft().prettyPrint(out, ind);
 		out.print(" > ");
+		getRight().prettyPrint(out, ind);
+	}
+
+	public void GreaterOrEqual.prettyPrint(PrintStream out, String ind) {
+		getLeft().prettyPrint(out, ind);
+		out.print(" >= ");
 		getRight().prettyPrint(out, ind);
 	}
 

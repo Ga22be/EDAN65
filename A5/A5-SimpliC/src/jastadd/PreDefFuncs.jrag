@@ -7,7 +7,7 @@ aspect PredefFuncs {
         Function read = new Function(new IdDecl(new IntType(), "read"), new List(), new List());
         list.add(read);
 
-        Function print = new Function(new IdDecl(new IntType(), "print"), new List(), new List());
+        Function print = new Function(new IdDecl(new IntType(), "print"), new List().add(new Parameter(new IdDecl(new IntType(), "value"))), new List());
         list.add(print);
 
         return list;

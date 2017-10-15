@@ -12,7 +12,7 @@
 %terminals ID;
 
 // Self added terminals
-%terminals NUMERAL, INT, BOOL, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, SUB, MUL, DIV, MOD, COMMA, IF, ELSE, WHILE, LT, GT, EQ, NEQ, RETURN;
+%terminals NUMERAL, INT, BOOL, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, SUB, MUL, DIV, MOD, COMMA, IF, ELSE, WHILE, LT, LOE, GT, GOE, EQ, NEQ, RETURN;
 
 %typeof program =       "Program";
 
@@ -147,10 +147,12 @@ div = term.term DIV factor.factor {: return new Div(term, factor); :} ;
 mod = term.term MOD factor.factor {: return new Mod(term, factor); :} ;
 
 binExpr = expr
-    | expr.exp1 EQ expr.exp2 {: return new Equal(exp1, exp2);:}
-    | expr.exp1 NEQ expr.exp2 {: return new NotEqual(exp1, exp2);:}
-    | expr.exp1 LT expr.exp2 {: return new LesserThan(exp1, exp2);:}
-    | expr.exp1 GT expr.exp2 {: return new GreaterThan(exp1, exp2);:}
+    | expr.exp1 EQ expr.exp2 {: return new Equal(exp1, exp2); :}
+    | expr.exp1 NEQ expr.exp2 {: return new NotEqual(exp1, exp2); :}
+    | expr.exp1 LT expr.exp2 {: return new LesserThan(exp1, exp2); :}
+    | expr.exp1 LOE expr.exp2 {: return new LesserOrEqual(exp1, exp2); :}
+    | expr.exp1 GT expr.exp2 {: return new GreaterThan(exp1, exp2); :}
+    | expr.exp1 GOE expr.exp2 {: return new GreaterOrEqual(exp1, exp2); :}
     ;
 
 // Factors

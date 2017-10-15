@@ -143,6 +143,16 @@ aspect NameAnalysis {
 
     syn boolean FunctionUse.isVariableCall() = getName().decl().isVariable();
     syn boolean Assignment.isFunctionReAssign() = getIdUse().decl().isFunction();
+
+    syn boolean FunctionUse.isCorrectArgAmount() {
+        IdDecl decl = getName().decl();
+
+        if(decl.isVariable()){
+            return true;
+        } else {
+            return decl.function().getNumParameter() == getNumArguments();
+        }
+    }
 }
 
 

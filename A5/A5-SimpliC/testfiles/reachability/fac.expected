@@ -1,0 +1,6 @@
+fac: fac
+f: fac
+f: print
+main: fac
+main: f
+main: print

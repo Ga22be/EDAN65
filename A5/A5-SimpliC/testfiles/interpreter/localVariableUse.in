@@ -1,0 +1,9 @@
+int main() {
+    int a = 7-4;
+    int b = a * 2;
+    int c = b * 4 % 5;
+
+    print(a);
+    print(b);
+    print(c);
+}

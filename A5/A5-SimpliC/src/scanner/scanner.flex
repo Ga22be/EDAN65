@@ -54,7 +54,9 @@ Comment = "//"~"\n"
 "%"           { return sym(Terminals.MOD); }
 ","           { return sym(Terminals.COMMA); }
 "<"           { return sym(Terminals.LT); }
+"<="          { return sym(Terminals.LOE); }
 ">"           { return sym(Terminals.GT); }
+">="          { return sym(Terminals.GOE); }
 "=="          { return sym(Terminals.EQ); }
 "!="          { return sym(Terminals.NEQ); }
 "if"          { return sym(Terminals.IF); }
