@@ -1,0 +1,6 @@
+int main() {
+    print(1+2*3);
+    print(4*5);
+    print(20/5);
+    print(23%5);
+}

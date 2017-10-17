@@ -1,0 +1,38 @@
+Program
+  List
+    Function
+      IdDecl ID="gcd1"
+        IntType
+      List
+        Parameter
+          IdDecl ID="a"
+            IntType
+        Parameter
+          IdDecl ID="b"
+            IntType
+      List
+        WhileStatement
+          NotEqual
+            IdUse ID="a"
+            IdUse ID="b"
+          List
+            IfStatement
+              GreaterThan
+                IdUse ID="a"
+                IdUse ID="b"
+              List
+                Assignment
+                  IdUse ID="a"
+                  Sub
+                    IdUse ID="a"
+                    IdUse ID="b"
+              Opt
+                Else
+                  List
+                    Assignment
+                      IdUse ID="b"
+                      Sub
+                        IdUse ID="b"
+                        IdUse ID="a"
+        Return
+          IdUse ID="a"

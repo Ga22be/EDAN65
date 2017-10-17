@@ -1,0 +1,25 @@
+import java.util.Set;
+import java.util.HashSet;
+
+aspect CallGraph {
+    inh Function FunctionUse.enclosingFunction();
+    	eq Function.getChild().enclosingFunction() = this;
+
+    	coll Set<Function> Function.functionCalls() [new HashSet<Function>()] with add;
+
+    FunctionUse contributes getName().decl().function()
+    	    to Function.functionCalls()
+    	    for enclosingFunction();
+
+    coll Set<Function> Function.reachability()
+        circular [new HashSet<Function>()]
+        with addAll;
+
+    FunctionUse contributes getName().decl().function().functionCalls()
+            to Function.reachability()
+            for enclosingFunction();
+
+    FunctionUse contributes enclosingFunction().functionCalls()
+        to Function.reachability()
+        for enclosingFunction();
+}

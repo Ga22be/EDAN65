@@ -1,0 +1,4 @@
+int a(int house, int boat) {
+    int c;
+    c = boat * 3 / 2 + house;
+}

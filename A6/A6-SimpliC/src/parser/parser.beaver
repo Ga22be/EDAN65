@@ -1,0 +1,175 @@
+%class "LangParser";
+%package "lang.ast";
+
+%embed {:
+	static public class SyntaxError extends RuntimeException { public SyntaxError(String msg) {super(msg);}}
+	// Disable syntax error recovery
+	protected void recoverFromError(Symbol token, TokenStream in) {
+		throw new SyntaxError("Cannot recover from the syntax error");
+	}
+:};
+
+%terminals ID;
+
+// Self added terminals
+%terminals NUMERAL, INT, BOOL, LPAR, RPAR, LBRACE, RBRACE, SEMI, ASSIGN, ADD, SUB, MUL, DIV, MOD, COMMA, IF, ELSE, WHILE, LT, LOE, GT, GOE, EQ, NEQ, RETURN;
+
+%typeof program =       "Program";
+
+%typeof function =      "Function";
+%typeof functionList =  "List";
+%typeof parameter =     "Parameter";
+%typeof paramList =     "List";
+%typeof argList =       "List";
+
+%typeof type =          "Type";
+
+%typeof stmtList =      "List";
+%typeof stmt =          "Statement";
+%typeof decl =          "Declaration";
+%typeof assign =        "Assignment";
+%typeof declAssign =    "DeclAssignment";
+%typeof ifStmt =        "IfStatement";
+%typeof else =          "Else";
+%typeof while =         "WhileStatement";
+%typeof funcCall =      "FunctionCall";
+%typeof return =        "Return";
+
+%typeof add =           "Add";
+%typeof sub =           "Sub";
+%typeof mul =           "Mul";
+%typeof div =           "Div";
+%typeof mod =           "Mod";
+%typeof expr =          "Expression";
+%typeof term =          "Expression";
+%typeof factor =        "Expression";
+%typeof binExpr =       "Expression";
+
+//%typeof lt =            "LesserThan";
+//%typeof gt =            "GreaterThan";
+//%typeof eq =            "Equal";
+//%typeof neq =           "NotEquals";
+//%typeof comparison =    "Comparison";
+
+
+%typeof numeral =       "Numeral";
+%typeof idUse =         "IdUse";
+%typeof idDecl =        "IdDecl";
+%typeof funcUse =       "FunctionUse";
+
+%goal program;
+
+program = functionList.a {: return new Program(a); :};
+
+// Functions
+functionList =
+    function.func {: return new List().add(func); :}
+    | functionList.funcList function.func {: return funcList.add(func); :} ;
+
+function =
+    idDecl.funcID LPAR paramList.listOfParams RPAR LBRACE stmtList.listOfStmts RBRACE {: return new Function(funcID, listOfParams, listOfStmts); :}
+    |   idDecl.funcID LPAR paramList.listOfParams RPAR LBRACE RBRACE {: return new Function(funcID, listOfParams, new List()); :}
+    |   idDecl.funcID LPAR RPAR LBRACE stmtList.listOfStmts RBRACE {: return new Function(funcID, new List(), listOfStmts); :}
+    |   idDecl.funcID LPAR RPAR LBRACE RBRACE {: return new Function(funcID, new List(), new List()); :}
+    ;
+
+// Parameters
+paramList =
+    // Empty
+    //{: return new List(); :}
+    //|
+    parameter.param {: return new List().add(param); :}
+    | paramList.paramList COMMA parameter.param {: return paramList.add(param); :} ;
+
+parameter = idDecl.paramID {: return new Parameter(paramID); :} ;
+
+type = INT {: return new IntType(); :}
+    | BOOL {: return new BoolType(); :}
+    ;
+
+// Statements
+stmtList =
+    // Empty
+    //{: return new List(); :}
+    //|
+    stmt.stmt {: return new List().add(stmt); :}
+    | stmtList.stmtList stmt.stmt {: return stmtList.add(stmt); :}
+    ;
+
+stmt = ifStmt | while | decl | assign | declAssign | funcCall | return;
+
+ifStmt =
+    IF LPAR binExpr.comp RPAR LBRACE stmtList.listOfStmts RBRACE else.opt {: return new IfStatement(comp, listOfStmts, new Opt(opt)); :}
+    | IF LPAR binExpr.comp RPAR LBRACE RBRACE else.opt {: return new IfStatement(comp, new List(), new Opt(opt)); :}
+    | IF LPAR binExpr.comp RPAR LBRACE stmtList.listOfStmts RBRACE {: return new IfStatement(comp, listOfStmts, new Opt()); :}
+    | IF LPAR binExpr.comp RPAR LBRACE RBRACE {: return new IfStatement(comp, new List(), new Opt()); :}
+    ;
+
+else =
+    ELSE LBRACE stmtList.listOfStmts RBRACE {: return new Else(listOfStmts); :}
+    | ELSE LBRACE RBRACE {: return new Else(new List()); :}
+    ;
+
+while =
+    WHILE LPAR binExpr.comp RPAR LBRACE stmtList.listOfStmts RBRACE {: return new WhileStatement(comp, listOfStmts); :}
+    | WHILE LPAR binExpr.comp RPAR LBRACE RBRACE {: return new WhileStatement(comp, new List()); :}
+    ;
+
+funcCall = funcUse.func SEMI {: return new FunctionCall(func); :};
+
+return = RETURN expr.expr SEMI {: return new Return(expr); :} ;
+
+decl = idDecl.id SEMI {: return new Declaration(id); :} ;
+
+assign = idUse.id ASSIGN expr.expr SEMI {: return new Assignment(id, expr); :} ;
+
+declAssign = idDecl.id ASSIGN expr.expr SEMI {: return new DeclAssignment(id, expr); :} ;
+
+// Comparisons
+// comparison = eq | neq | lt | gt;
+
+//eq = expr.left EQ expr.right {: return new Equal(left, right); :} ;
+//neq = expr.left NEQ expr.right {: return new NotEqual(left, right); :} ;
+//lt = expr.left LT expr.right {: return new LesserThan(left, right); :} ;
+//gt = expr.left GT expr.right {: return new GreaterThan(left, right); :} ;
+
+// Expressions
+expr = add | sub | term;
+
+add = expr.expr ADD term.term {: return new Add(expr, term); :} ;
+sub = expr.expr SUB term.term {: return new Sub(expr, term); :} ;
+
+// Terms
+term = mul | div | mod | factor;
+
+mul = term.term MUL factor.factor {: return new Mul(term, factor); :} ;
+div = term.term DIV factor.factor {: return new Div(term, factor); :} ;
+mod = term.term MOD factor.factor {: return new Mod(term, factor); :} ;
+
+binExpr = expr
+    | expr.exp1 EQ expr.exp2 {: return new Equal(exp1, exp2); :}
+    | expr.exp1 NEQ expr.exp2 {: return new NotEqual(exp1, exp2); :}
+    | expr.exp1 LT expr.exp2 {: return new LesserThan(exp1, exp2); :}
+    | expr.exp1 LOE expr.exp2 {: return new LesserOrEqual(exp1, exp2); :}
+    | expr.exp1 GT expr.exp2 {: return new GreaterThan(exp1, exp2); :}
+    | expr.exp1 GOE expr.exp2 {: return new GreaterOrEqual(exp1, exp2); :}
+    ;
+
+// Factors
+factor = idUse | numeral | LPAR expr RPAR | funcUse;
+
+numeral = NUMERAL.num {: return new Numeral(num); :} ;
+
+idUse = ID.id {: return new IdUse(id); :} ;
+
+funcUse =
+    idUse.name LPAR argList.listOfArgs RPAR {: return new FunctionUse(name, listOfArgs); :}
+    | idUse.name LPAR RPAR {: return new FunctionUse(name, new List()); :}
+    ;
+
+idDecl = type.type ID.id {: return new IdDecl(type, id); :} ;
+
+argList =
+    expr.expr {:return new List().add(expr); :}
+    | argList.argList COMMA expr.expr {: return argList.add(expr); :}
+    ;

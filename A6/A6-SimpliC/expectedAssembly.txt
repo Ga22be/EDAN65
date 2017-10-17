@@ -1,0 +1,39 @@
+Program 1
+int main() {
+	return 1;
+}
+
+.global _start
+.data
+.text
+_start:
+	pushq %rbp
+	movq %rsp %rbp
+	movq $1, %rdi	# exit code
+	movq $60, %rax	# sys_exit
+	syscall
+
+Program 2
+int f() {
+	return 2;
+}
+int main() {
+	f();
+	return 1;
+}
+
+.global _start
+.data
+.text
+_start:
+	pushq %rbp
+	movq %rsp %rbp
+	call f
+	movq %rax, %rdi	# exit code
+	movq $60, %rax	# sys_exit
+	syscall
+
+f:
+	movq $2, %rax
+	ret
+	

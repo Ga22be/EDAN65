@@ -1,0 +1,3 @@
+Error at line 2: symbol 'house' is not declared
+Error at line 2: type: IntType != type: UnknownType
+Error at line 6: Expected boolean, got: IntType

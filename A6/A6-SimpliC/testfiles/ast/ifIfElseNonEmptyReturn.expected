@@ -1,0 +1,52 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+        IntType
+      List
+        Parameter
+          IdDecl ID="house"
+            IntType
+        Parameter
+          IdDecl ID="boat"
+            IntType
+      List
+        IfStatement
+          LesserThan
+            IdUse ID="house"
+            IdUse ID="boat"
+          List
+            Declaration
+              IdDecl ID="a"
+                IntType
+            Assignment
+              IdUse ID="a"
+              Sub
+                IdUse ID="house"
+                IdUse ID="boat"
+            IfStatement
+              GreaterThan
+                IdUse ID="a"
+                IdUse ID="house"
+              List
+                Assignment
+                  IdUse ID="a"
+                  Sub
+                    IdUse ID="a"
+                    IdUse ID="boat"
+              Opt
+            Return
+              IdUse ID="a"
+          Opt
+            Else
+              List
+                Declaration
+                  IdDecl ID="b"
+                    IntType
+                Assignment
+                  IdUse ID="b"
+                  Sub
+                    IdUse ID="boat"
+                    IdUse ID="house"
+                Return
+                  IdUse ID="b"

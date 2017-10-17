@@ -1,0 +1,23 @@
+aspect UniqueNames {
+    syn String IdDecl.uniqueName() = uniqueNum() + getID();
+
+    inh String Statement.uniqueNum();
+    inh String IdDecl.uniqueNum();
+
+    eq Function.getStatement(int i).uniqueNum() = Integer.toString(i) + "_";
+    eq Declaration.getIdDecl().uniqueNum() = uniqueNum();
+    eq DeclAssignment.getIdDecl().uniqueNum() = uniqueNum();
+    eq Function.getIdDecl().uniqueNum() = "";
+    eq Parameter.getIdDecl().uniqueNum() = "";
+    eq Program.unknownDecl().uniqueNum() = "";
+
+    eq IfStatement.getStatement(int i).uniqueNum() =
+        uniqueNum() + Integer.toString(i) + "_";
+
+    inh String Else.uniqueNum();
+    eq Else.getStatement(int i).uniqueNum() =
+        uniqueNum() + Integer.toString(i) + "_";
+
+    eq WhileStatement.getStatement(int i).uniqueNum() =
+        uniqueNum() + Integer.toString(i) + "_";
+}

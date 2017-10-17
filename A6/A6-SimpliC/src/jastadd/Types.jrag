@@ -1,0 +1,44 @@
+aspect Types {
+    syn nta IntType Program.intType() = new IntType();
+    syn nta BoolType Program.boolType() = new BoolType();
+    syn nta UnknownType Program.unknownType() = new UnknownType();
+
+        inh IntType ASTNode.intType();
+        inh BoolType ASTNode.boolType();
+        inh UnknownType ASTNode.unknownType();
+        eq Program.getChild().intType() = intType();
+        eq Program.getChild().boolType() = boolType();
+        eq Program.getChild().unknownType() = unknownType();
+
+        syn Type IdDecl.type() = getType();
+
+    syn Type Expression.type();
+        eq BinExpression.type() = boolType();
+        eq Add.type() = intType();
+        eq Sub.type() = intType();
+        eq Mul.type() = intType();
+        eq Div.type() = intType();
+        eq Mod.type() = intType();
+        eq Numeral.type() = intType();
+        eq IdUse.type() = decl().type();
+        eq FunctionUse.type() = getName().type();
+
+    syn boolean Type.compatibleWith(Type other);
+
+    eq IntType.compatibleWith(Type other) = other.isIntType();
+    eq BoolType.compatibleWith(Type other) = other.isBoolType();
+    eq UnknownType.compatibleWith(Type other) = other.isUnknownType();
+
+    syn boolean Type.isIntType() = false;
+    syn boolean Type.isBoolType() = false;
+    syn boolean Type.isUnknownType() = false;
+    eq IntType.isIntType() = true;
+    eq BoolType.isBoolType() = true;
+    eq UnknownType.isUnknownType() = true;
+
+    syn Type IfStatement.expectedType() = boolType();
+    syn Type WhileStatement.expectedType() = boolType();
+    syn boolean IfStatement.isWrongType() = !expectedType().compatibleWith(getExpression().type());
+    syn boolean WhileStatement.isWrongType() = !expectedType().compatibleWith(getExpression().type());
+    syn boolean BinExpression.isWrongType() = !getLeft().type().compatibleWith(getRight().type());
+}

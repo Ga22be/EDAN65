@@ -1,0 +1,11 @@
+Program
+  List
+    Function
+      IdDecl ID="a"
+        IntType
+      List
+      List
+        DeclAssignment
+          IdDecl ID="c"
+            IntType
+          Numeral NUMERAL="3"

@@ -1,0 +1,29 @@
+Program
+  List
+    Function
+      IdDecl ID="gcd2"
+        IntType
+      List
+        Parameter
+          IdDecl ID="a"
+            IntType
+        Parameter
+          IdDecl ID="b"
+            IntType
+      List
+        IfStatement
+          Equal
+            IdUse ID="b"
+            Numeral NUMERAL="0"
+          List
+            Return
+              IdUse ID="a"
+          Opt
+        Return
+          FunctionUse
+            IdUse ID="gcd2"
+            List
+              IdUse ID="b"
+              Mod
+                IdUse ID="a"
+                IdUse ID="b"

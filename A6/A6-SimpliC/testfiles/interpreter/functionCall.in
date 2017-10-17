@@ -1,0 +1,9 @@
+int main() {
+    int a = 5;
+    int b = add(a, 10);
+    print(b);
+}
+
+int add(int left, int right) {
+    return left + right;
+}

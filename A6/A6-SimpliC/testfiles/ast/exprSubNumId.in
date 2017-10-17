@@ -1,0 +1,6 @@
+int sub() {
+    int a;
+    int b;
+    b = 7;
+    a = 4 - b;
+}
