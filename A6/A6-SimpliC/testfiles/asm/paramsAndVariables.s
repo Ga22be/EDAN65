@@ -12,23 +12,49 @@ main:
         pushq %rbp
         movq %rsp, %rbp
         subq $0, %rsp
-        movq $3, %rax
+        movq $2, %rax
         pushq %rax
-        movq $7, %rax
-        movq %rax, %rbx
-        popq %rax
-        cmpq %rbx, %rax
-       jge ifStmt_else0_
-ifStmt_then0_:
-        movq $8, %rax
+        movq $1, %rax
+        pushq %rax
+        call f
+        popq %rbx
+        popq %rbx
         pushq %rax
         call print
         popq %rbx
-       jmp ifStmt_end0_
-ifStmt_else0_:
-ifStmt_end0_:
         movq $0, %rax
         addq $0, %rsp
+        popq %rbp
+        ret
+f:
+        pushq %rbp
+        movq %rsp, %rbp
+        subq $16, %rsp
+        pushq 16(%rbp)
+        pushq 24(%rbp)
+        movq $3, %rax
+        movq %rax, -8(%rbp)
+        movq $4, %rax
+        movq %rax, -16(%rbp)
+        movq -24(%rbp), %rax
+        pushq %rax
+        movq -32(%rbp), %rax
+        movq %rax, %rbx
+        popq %rax
+        addq %rbx, %rax
+        pushq %rax
+        movq -8(%rbp), %rax
+        movq %rax, %rbx
+        popq %rax
+        addq %rbx, %rax
+        pushq %rax
+        movq -16(%rbp), %rax
+        movq %rax, %rbx
+        popq %rax
+        addq %rbx, %rax
+        popq %rbx
+        popq %rbx
+        addq $16, %rsp
         popq %rbp
         ret
 

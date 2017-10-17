@@ -8,26 +8,151 @@ _start:
         movq %rax, %rdi
         movq $60, %rax
         syscall
-main:
+gcd1:
         pushq %rbp
         movq %rsp, %rbp
         subq $0, %rsp
-        movq $3, %rax
+        pushq 16(%rbp)
+        pushq 24(%rbp)
+whileStmt_do0_:
+        movq -8(%rbp), %rax
         pushq %rax
-        movq $7, %rax
+        movq -16(%rbp), %rax
         movq %rax, %rbx
         popq %rax
         cmpq %rbx, %rax
-       jge ifStmt_else0_
-ifStmt_then0_:
-        movq $8, %rax
+       je whileStmt_else0_
+        movq -8(%rbp), %rax
+        pushq %rax
+        movq -16(%rbp), %rax
+        movq %rax, %rbx
+        popq %rax
+        cmpq %rbx, %rax
+       jle ifStmt_else0_0_
+ifStmt_then0_0_:
+        movq -8(%rbp), %rax
+        pushq %rax
+        movq -16(%rbp), %rax
+        movq %rax, %rbx
+        popq %rax
+        subq %rbx, %rax
+        movq %rax, -8(%rbp)
+       jmp ifStmt_end0_0_
+ifStmt_else0_0_:
+        movq -16(%rbp), %rax
+        pushq %rax
+        movq -8(%rbp), %rax
+        movq %rax, %rbx
+        popq %rax
+        subq %rbx, %rax
+        movq %rax, -16(%rbp)
+ifStmt_end0_0_:
+        jmp whileStmt_do0_
+whileStmt_else0_:
+        movq -8(%rbp), %rax
+        popq %rbx
+        popq %rbx
+        addq $0, %rsp
+        popq %rbp
+        ret
+main:
+        pushq %rbp
+        movq %rsp, %rbp
+        subq $24, %rsp
+        movq $0, %rax
+        movq %rax, -8(%rbp)
+        movq $0, %rax
+        movq %rax, -16(%rbp)
+        movq $10, %rax
+        movq %rax, -8(%rbp)
+        movq $5, %rax
+        movq %rax, -16(%rbp)
+        movq -16(%rbp), %rax
+        pushq %rax
+        movq -8(%rbp), %rax
+        pushq %rax
+        call gcd1
+        popq %rbx
+        popq %rbx
         pushq %rax
         call print
         popq %rbx
+        movq -16(%rbp), %rax
+        pushq %rax
+        movq -8(%rbp), %rax
+        pushq %rax
+        call gcd2
+        popq %rbx
+        popq %rbx
+        pushq %rax
+        call print
+        popq %rbx
+        movq -16(%rbp), %rax
+        pushq %rax
+        movq -8(%rbp), %rax
+        pushq %rax
+        call gcd1
+        popq %rbx
+        popq %rbx
+        pushq %rax
+        movq -16(%rbp), %rax
+        pushq %rax
+        movq -8(%rbp), %rax
+        pushq %rax
+        call gcd2
+        popq %rbx
+        popq %rbx
+        movq %rax, %rbx
+        popq %rax
+        subq %rbx, %rax
+        movq %rax, -24(%rbp)
+        movq -24(%rbp), %rax
+        pushq %rax
+        call print
+        popq %rbx
+        movq $0, %rax
+        addq $24, %rsp
+        popq %rbp
+        ret
+gcd2:
+        pushq %rbp
+        movq %rsp, %rbp
+        subq $0, %rsp
+        pushq 16(%rbp)
+        pushq 24(%rbp)
+        movq -16(%rbp), %rax
+        pushq %rax
+        movq $0, %rax
+        movq %rax, %rbx
+        popq %rax
+        cmpq %rbx, %rax
+       jne ifStmt_else0_
+ifStmt_then0_:
+        movq -8(%rbp), %rax
+        popq %rbx
+        popq %rbx
+        addq $0, %rsp
+        popq %rbp
+        ret
        jmp ifStmt_end0_
 ifStmt_else0_:
 ifStmt_end0_:
-        movq $0, %rax
+        movq -8(%rbp), %rax
+        pushq %rax
+        movq -16(%rbp), %rax
+        movq %rax, %rbx
+        popq %rax
+        movq $0, %rdx
+        idivq %rbx, %rax
+        movq %rdx, %rax
+        pushq %rax
+        movq -16(%rbp), %rax
+        pushq %rax
+        call gcd2
+        popq %rbx
+        popq %rbx
+        popq %rbx
+        popq %rbx
         addq $0, %rsp
         popq %rbp
         ret

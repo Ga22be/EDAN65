@@ -11,24 +11,22 @@ _start:
 main:
         pushq %rbp
         movq %rsp, %rbp
-        subq $0, %rsp
+        subq $16, %rsp
+        movq $2, %rax
+        movq %rax, -8(%rbp)
         movq $3, %rax
+        movq %rax, -16(%rbp)
+        movq -8(%rbp), %rax
         pushq %rax
-        movq $7, %rax
+        movq -16(%rbp), %rax
         movq %rax, %rbx
         popq %rax
-        cmpq %rbx, %rax
-       jge ifStmt_else0_
-ifStmt_then0_:
-        movq $8, %rax
+        addq %rbx, %rax
         pushq %rax
         call print
         popq %rbx
-       jmp ifStmt_end0_
-ifStmt_else0_:
-ifStmt_end0_:
         movq $0, %rax
-        addq $0, %rsp
+        addq $16, %rsp
         popq %rbp
         ret
 

@@ -11,24 +11,43 @@ _start:
 main:
         pushq %rbp
         movq %rsp, %rbp
-        subq $0, %rsp
+        subq $24, %rsp
+        movq $5, %rax
+        movq %rax, -8(%rbp)
         movq $3, %rax
+        movq %rax, -16(%rbp)
+        movq $2, %rax
+        movq %rax, -24(%rbp)
+whileStmt_do3_:
+        movq -24(%rbp), %rax
         pushq %rax
-        movq $7, %rax
+        movq $0, %rax
         movq %rax, %rbx
         popq %rax
         cmpq %rbx, %rax
-       jge ifStmt_else0_
-ifStmt_then0_:
-        movq $8, %rax
+       jle whileStmt_else3_
+        movq -8(%rbp), %rax
+        pushq %rax
+        movq -16(%rbp), %rax
+        movq %rax, %rbx
+        popq %rax
+        movq $0, %rdx
+        idivq %rbx, %rax
+        movq %rdx, %rax
         pushq %rax
         call print
         popq %rbx
-       jmp ifStmt_end0_
-ifStmt_else0_:
-ifStmt_end0_:
+        movq -24(%rbp), %rax
+        pushq %rax
+        movq $1, %rax
+        movq %rax, %rbx
+        popq %rax
+        subq %rbx, %rax
+        movq %rax, -24(%rbp)
+        jmp whileStmt_do3_
+whileStmt_else3_:
         movq $0, %rax
-        addq $0, %rsp
+        addq $24, %rsp
         popq %rbp
         ret
 

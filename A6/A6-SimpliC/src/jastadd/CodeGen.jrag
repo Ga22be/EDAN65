@@ -119,6 +119,8 @@ aspect CodeGen {
         out.println(getIdDecl().getID() + ":");
 		out.println("        pushq %rbp");
 		out.println("        movq %rsp, %rbp");
+        int localsBytes = getStatementList().numLocals() * 8;
+        out.println("        subq $" + localsBytes + ", %rsp");
 
 		for(int i = 0; i < getNumParameter(); i++) {
 		    out.println("        pushq " + getParameter(i).getIdDecl().parameterAddress());
@@ -130,6 +132,30 @@ aspect CodeGen {
     }
 
     public void Statement.genCode(PrintStream out){}
+
+    public void Declaration.genCode(PrintStream out) {
+        out.println("        movq $0, %rax");
+        out.println("        movq %rax, " +
+            getIdDecl().variableAddress());
+    }
+
+    public void DeclAssignment.genCode(PrintStream out) {
+        getExpression().genEval(out);
+        out.println("        movq %rax, " +
+            getIdDecl().variableAddress());
+    }
+
+    public void Assignment.genCode(PrintStream out) {
+        getExpression().genEval(out);
+        IdDecl decl = getIdUse().decl();
+        if (decl.isParameter()) {
+            int addressOffset = numLocals() * 8 + (decl.parameterIndex() + 1) * 8;
+            out.println("        movq %rax, -" + addressOffset + "(%rbp)");
+        } else if (decl.isVariable()) {
+            out.println("        movq %rax, " +
+                decl.variableAddress());
+        }
+    }
 
     public void IfStatement.genCode(PrintStream out){
         String thenLabel = "ifStmt_then" + uniqueNum();
@@ -185,6 +211,7 @@ aspect CodeGen {
             out.println("        popq %rbx");
         }
 
+        out.println("        addq $" + numLocals() * 8 + ", %rsp");
         out.println("        popq %rbp");
         out.println("        ret");
     }
@@ -316,6 +343,15 @@ aspect CodeGen {
         }
     }
 
+    public void IdUse.genEval(PrintStream out) {
+        if (decl().isParameter()) {
+            int addressOffset = numLocals() * 8 + (decl().parameterIndex() + 1) * 8;
+            out.println("        movq -" + addressOffset + "(%rbp), %rax");
+        } else if (decl().isVariable()) {
+            out.println("        movq " + decl().variableAddress() + ", %rax");
+        }
+    }
+
     public void BinExpression.genConditionalJump(PrintStream out, String label) {
         out.println(label + "_true:");
     }
@@ -324,12 +360,18 @@ aspect CodeGen {
 	 * Address of local variable in the current stack frame.
 	 */
 	syn String IdDecl.parameterAddress() = ((parameterIndex()+2)*8)+"(%rbp)";
-	syn String IdDecl.address() = "-"+(localIndex()*8)+"(%rbp)";
+	syn String IdDecl.variableAddress() = "-"+(localIndex()*8)+"(%rbp)";
 
 	/**
 	 * Local variable counting.
 	 */
 	syn int ASTNode.numLocals() = lastNode().localIndex() - localIndex();
+
+	inh int Statement.numLocals();
+	eq Function.getStatement(int i).numLocals() = numLocals();
+
+	inh int IdUse.numLocals();
+	eq Function.getChild(int i).numLocals() = numLocals();
 
 
 	/**
@@ -337,7 +379,13 @@ aspect CodeGen {
 	 */
 	syn int ASTNode.localIndex() = prevNode().localIndex();
 	eq Program.localIndex() = 0;
-	eq IdDecl.localIndex() = prevNode().localIndex() + 1;
+	eq Function.localIndex() = 0;
+	eq IdDecl.localIndex() {
+	    if (isFunction() || isParameter())
+	        return prevNode().localIndex();
+	    else
+	        return prevNode().localIndex() + 1;
+	}
 
 	inh int Statement.getNumParameter();
 	eq Function.getStatement(int i).getNumParameter() = getNumParameter();

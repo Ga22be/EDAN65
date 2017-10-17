@@ -11,6 +11,7 @@ _start:
 main:
         pushq %rbp
         movq %rsp, %rbp
+        subq $0, %rsp
 whileStmt_do0_:
         movq $10, %rax
         pushq %rax
@@ -30,6 +31,7 @@ whileStmt_else0_:
         call print
         popq %rbx
         movq $0, %rax
+        addq $0, %rsp
         popq %rbp
         ret
 

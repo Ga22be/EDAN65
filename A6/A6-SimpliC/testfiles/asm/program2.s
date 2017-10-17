@@ -11,14 +11,18 @@ _start:
 f:
         pushq %rbp
         movq %rsp, %rbp
+        subq $0, %rsp
         movq $2, %rax
+        addq $0, %rsp
         popq %rbp
         ret
 main:
         pushq %rbp
         movq %rsp, %rbp
+        subq $0, %rsp
         call f
         movq $0, %rax
+        addq $0, %rsp
         popq %rbp
         ret
 

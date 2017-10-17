@@ -11,6 +11,7 @@ _start:
 main:
         pushq %rbp
         movq %rsp, %rbp
+        subq $0, %rsp
         movq $3, %rax
         pushq %rax
         movq $7, %rax
@@ -31,6 +32,7 @@ ifStmt_else0_:
         popq %rbx
 ifStmt_end0_:
         movq $0, %rax
+        addq $0, %rsp
         popq %rbp
         ret
 

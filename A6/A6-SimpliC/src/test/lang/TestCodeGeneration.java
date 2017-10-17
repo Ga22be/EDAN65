@@ -1,5 +1,6 @@
 package lang;
 
+import lang.ast.ErrorMessage;
 import lang.ast.Program;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,36 +34,45 @@ public class TestCodeGeneration {
 
 		assertEquals("[]", program.errors().toString());
 
-		// Generate Assembly file.
-		File assemblyFile = new File(TEST_DIRECTORY, Util.changeExtension(filename, ".s"));
-		PrintStream out = new PrintStream(new FileOutputStream(assemblyFile));
-		program.genCode(out);
-		out.close();
+		StringBuilder sb = new StringBuilder();
+		for (ErrorMessage m : program.errors()) {
+			sb.append(m).append("\n");
+		}
 
-		// Generate object file.
-		File objectFile = new File(TEST_DIRECTORY, Util.changeExtension(filename, ".o"));
-		ArrayList<String> cmdAs = new ArrayList<String>();
-		cmdAs.add("as");
-		cmdAs.add("--gstabs");
-		cmdAs.add(assemblyFile.getAbsolutePath());
-		cmdAs.add("-o");
-		cmdAs.add(objectFile.getAbsolutePath());
-		execute(cmdAs);
+		if (!program.errors().isEmpty()) {}
 
-		// Link object file and generate executable file.
-		File execFile = new File(TEST_DIRECTORY, Util.changeExtension(filename, ".elf"));
-		ArrayList<String> cmdLd = new ArrayList<String>();
-		cmdLd.add("ld");
-		cmdLd.add(objectFile.getAbsolutePath());
-		cmdLd.add("-o");
-		cmdLd.add(execFile.getAbsolutePath());
-		execute(cmdLd);
+		else {
+			// Generate Assembly file.
+			File assemblyFile = new File(TEST_DIRECTORY, Util.changeExtension(filename, ".s"));
+			PrintStream out = new PrintStream(new FileOutputStream(assemblyFile));
+			program.genCode(out);
+			out.close();
 
-		// Run the executable file and compare output:
-		String actual = execute(Arrays.asList(execFile.getAbsolutePath()));
-		Util.compareOutput(actual,
-				new File(TEST_DIRECTORY, Util.changeExtension(filename, ".out")),
-				new File(TEST_DIRECTORY, Util.changeExtension(filename, ".expected")));
+			// Generate object file.
+			File objectFile = new File(TEST_DIRECTORY, Util.changeExtension(filename, ".o"));
+			ArrayList<String> cmdAs = new ArrayList<String>();
+			cmdAs.add("as");
+			cmdAs.add("--gstabs");
+			cmdAs.add(assemblyFile.getAbsolutePath());
+			cmdAs.add("-o");
+			cmdAs.add(objectFile.getAbsolutePath());
+			execute(cmdAs);
+
+			// Link object file and generate executable file.
+			File execFile = new File(TEST_DIRECTORY, Util.changeExtension(filename, ".elf"));
+			ArrayList<String> cmdLd = new ArrayList<String>();
+			cmdLd.add("ld");
+			cmdLd.add(objectFile.getAbsolutePath());
+			cmdLd.add("-o");
+			cmdLd.add(execFile.getAbsolutePath());
+			execute(cmdLd);
+
+			// Run the executable file and compare output:
+			String actual = execute(Arrays.asList(execFile.getAbsolutePath()));
+			Util.compareOutput(actual,
+					new File(TEST_DIRECTORY, Util.changeExtension(filename, ".out")),
+					new File(TEST_DIRECTORY, Util.changeExtension(filename, ".expected")));
+		}
 	}
 
 	private String execute(List<String> cmd) throws IOException, InterruptedException {

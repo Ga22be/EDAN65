@@ -127,19 +127,27 @@ aspect NameAnalysis {
     	}
   	inh boolean IdDecl.isVariable();
    	inh boolean IdDecl.isFunction();
+   	inh boolean IdDecl.isParameter();
+
 
    	inh Function IdDecl.function();
    	    eq Function.getIdDecl().function() = this;
+
     	eq Declaration.getIdDecl().isFunction() = false;
     	eq Declaration.getIdDecl().isVariable() = true;
+    	eq Declaration.getIdDecl().isParameter() = false;
     	eq DeclAssignment.getIdDecl().isFunction() = false;
     	eq DeclAssignment.getIdDecl().isVariable() = true;
+    	eq DeclAssignment.getIdDecl().isParameter() = false;
        	eq Function.getIdDecl().isFunction() = true;
     	eq Function.getIdDecl().isVariable() = false;
+    	eq Function.getIdDecl().isParameter() = false;
     	eq Parameter.getIdDecl().isFunction() = false;
     	eq Parameter.getIdDecl().isVariable() = true;
+    	eq Parameter.getIdDecl().isParameter() = true;
     	eq Program.unknownDecl().isFunction() = false;
     	eq Program.unknownDecl().isVariable() = false;
+    	eq Program.unknownDecl().isParameter() = false;
 
     syn boolean FunctionUse.isVariableCall() = getName().decl().isVariable();
     syn boolean Assignment.isFunctionReAssign() = getIdUse().decl().isFunction();
